@@ -53,16 +53,30 @@ $(document).ready(function() {
 
 	//////// Adding to LOCAL STORAGE ////////
 
-	// $(document).ready(function() {
- //    	$(window).unload(saveSettings);
- //    	loadSettings();
-	// });
+	// function supports_local_storage() {
+ //  		try {
+ //    		return 'localStorage' in window && window['localStorage'] !== null;
+ //  		} catch(e){
+ //    	return false;
+ //  		}
+	// };
+
+
+	// function initialize () {
+	// 	var bSupportsLocal = (('localStorage' in window) && window['localStorage'] !== null);
+	// 	if (!bSupportsLocal) {
+	// 		document.getElementById('newTaskForm').innerHTML = "<p>Sorry, this browser is not supported</p>"
+	// 		return;
+	// 	}
+	// }
 
 	//Saves new item
 	$('#saveNewItem').on('click', function (e) {
 		e.preventDefault();
 		var task = $('#newItemInput').val().trim();
 		addTask(task);
+		localStorage.setItem("newitemInput", task);
+		// window.location.href = "index.html";
 	});
 
 	//Opens form
@@ -74,6 +88,7 @@ $(document).ready(function() {
 	$('#cancel').on('click', function(e) {
 		e.preventDefault();
 		$('#newTaskForm').fadeToggle('fast', 'linear');
+		window.localStorage.clear(); //should this go here? Am I missing something?
 	});
 
 	//change status of an item from 'new' 'inProgress'
